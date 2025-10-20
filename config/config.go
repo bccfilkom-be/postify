@@ -2,6 +2,7 @@ package config
 
 import (
 	"log"
+	"os"
 
 	"github.com/caarlos0/env"
 	"github.com/joho/godotenv"
@@ -23,9 +24,14 @@ func Load() Config {
 }
 
 func newConfig() Config {
-	err := godotenv.Load()
+	err := godotenv.Load(".env")
 	if err != nil {
-		log.Fatal("Error loading .env file")
+		if os.IsNotExist(err) {
+			// .env file does not exist, proceed with system env variables
+			os.Getenv("SHELL")
+		} else {
+			log.Fatal("Error loading .env file")
+		}
 	}
 
 	// parse
