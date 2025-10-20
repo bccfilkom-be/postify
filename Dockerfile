@@ -47,7 +47,6 @@ ENV TZ=Asia/Jakarta
 
 # Copy the binary to the production image from the builder stage.
 COPY --from=builder /app/build/server /app/server
-COPY .env .env
 
 RUN chmod +x /app/server
 
