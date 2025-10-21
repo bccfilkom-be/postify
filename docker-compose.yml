@@ -1,0 +1,12 @@
+services:
+  app:
+    container_name: postify-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "${APP_PORT}:${APP_PORT}"
+    env_file:
+      - .env
+    environment:
+      - APP_ENV=production
